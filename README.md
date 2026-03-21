@@ -64,12 +64,13 @@ Redesigning our Donkeycar with inexpensive components(IMU and cheaper GPS) to lo
 
 <hr>
 
-## Final Project Videos
-**Click** any of the images below to **reroute to the video**. 
+## Final Project Video 
 <div align="center">
      
 #### **[Complete GPS lap with IMU]**
-[<img src="Images/YOUR_IMAGE.png" width="500">](https://drive.google.com/file/d/1ayvyVb4PYAjlYvAcFlreRHea2IlMc_tX/view?usp=drive_link)
+[<img src="<img width="1215" height="1620" alt="image" src="https://github.com/user-attachments/assets/8b2fbdb1-61c8-4ad7-b745-3239b0f9a108" />
+<img width="1215" height="1620" alt="image" src="https://github.com/user-attachments/assets/8b2fbdb1-61c8-4ad7-b745-3239b0f9a108" />
+" width="500">](https://drive.google.com/file/d/1ayvyVb4PYAjlYvAcFlreRHea2IlMc_tX/view?usp=drive_link)
 
 </div>
 
