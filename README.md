@@ -35,16 +35,12 @@
 <div align="center">
     * Front View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400"> 
-    <div align="center">
     * Left View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
-    <div align="center">
     * Right View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
-    <div align="center">
     * Behind View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
-    <div align="center">
     * Birdeye View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
 
