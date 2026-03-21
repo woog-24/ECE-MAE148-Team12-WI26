@@ -3,118 +3,1219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[ECE/MAE 148 Team 12 WI26] | Documentation</title>
+    <title>ECE/MAE 148 | Team 12 | WI26</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-color: #0366d6; --bg-gray: #f6f8fa; --border-gray: #d1d5da; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 0; background-color: var(--bg-gray); }
-        
-        nav { background: #24292e; padding: 1rem; position: sticky; top: 0; display: flex; justify-content: center; z-index: 1000; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        nav a:hover { color: #58a6ff; }
+        :root {
+            --navy: #0a1628;
+            --navy-mid: #122040;
+            --blue: #1a6fc4;
+            --gold: #c8a951;
+            --gold-light: #e8c96e;
+            --white: #f5f7fa;
+            --gray-light: #e8ecf2;
+            --gray-mid: #8fa0b8;
+            --text: #1c2a3a;
+            --card-bg: #ffffff;
+            --border: #d0daea;
+            --accent: #1a6fc4;
+        }
 
-        header { background: white; border-bottom: 1px solid var(--border-gray); padding: 3rem 2rem; text-align: center; }
-        h1 { margin: 0; color: var(--primary-color); }
-        
-        .container { padding: 2rem; }
-        section { background: white; padding: 2rem; border-radius: 6px; border: 1px solid var(--border-gray); margin-bottom: 2rem; scroll-margin-top: 70px; }
-        h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.5rem; color: #24292e; margin-top: 0; }
-        
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .member-card { background: var(--bg-gray); padding: 1rem; border-radius: 4px; text-align: center; border: 1px solid #e1e4e8; }
-        
-        footer { text-align: center; padding: 2rem; color: #6a737d; font-size: 0.8rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--navy);
+            border-bottom: 2px solid var(--gold);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            height: 56px;
+        }
+        .nav-brand {
+            font-family: 'Space Mono', monospace;
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-right: auto;
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0 1rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, #1a3a5c 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(26,111,196,0.18) 0%, transparent 60%),
+                        radial-gradient(ellipse at 75% 70%, rgba(200,169,81,0.10) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .hero-logos {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .logo-placeholder {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            border: 2px solid rgba(200,169,81,0.4);
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 12px;
+            filter: brightness(0) invert(1);
+        }
+        .logo-placeholder .logo-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--gray-mid);
+            letter-spacing: 0.08em;
+            text-align: center;
+            padding: 0 8px 8px;
+        }
+        .logo-divider {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        }
+        .hero-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            background: rgba(200,169,81,0.12);
+            border: 1px solid rgba(200,169,81,0.3);
+            border-radius: 100px;
+            padding: 6px 18px;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+        .hero-title {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            color: var(--white);
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+        .hero-title span { color: var(--gold); }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--gray-mid);
+            font-weight: 300;
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+        }
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-meta-item {
+            text-align: center;
+        }
+        .hero-meta-item .label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--gray-mid);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .hero-meta-item .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .hero-meta-sep {
+            width: 1px;
+            height: 40px;
+            background: rgba(200,169,81,0.3);
+        }
+
+        /* ── TABLE OF CONTENTS ── */
+        #toc {
+            background: var(--navy);
+            padding: 4rem 2rem;
+            scroll-margin-top: 56px;
+        }
+        .toc-inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .toc-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(200,169,81,0.2);
+            border-radius: 8px;
+            padding: 1.2rem 1.4rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+        .toc-item:hover {
+            background: rgba(200,169,81,0.1);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .toc-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 700;
+            min-width: 32px;
+            opacity: 0.7;
+        }
+        .toc-text {
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .toc-text small {
+            display: block;
+            color: var(--gray-mid);
+            font-size: 0.75rem;
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        /* ── SHARED SECTION STYLES ── */
+        .page-section {
+            padding: 5rem 2rem;
+            scroll-margin-top: 56px;
+        }
+        .page-section:nth-child(even) { background: #f0f4fa; }
+        .section-inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+        .section-header .section-label { color: var(--blue); }
+
+        /* ── TEAM ── */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        .member-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .member-card:hover {
+            box-shadow: 0 8px 30px rgba(26,111,196,0.1);
+            transform: translateY(-3px);
+        }
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 1.4rem;
+            color: var(--white);
+            font-weight: 700;
+        }
+        .member-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: 0.3rem;
+        }
+        .member-major {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--blue);
+            letter-spacing: 0.08em;
+            background: rgba(26,111,196,0.08);
+            border-radius: 100px;
+            padding: 3px 10px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .member-role {
+            font-size: 0.82rem;
+            color: var(--gray-mid);
+        }
+
+        /* ── DONKEYCAR ── */
+        .car-image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .car-img-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--card-bg);
+            transition: box-shadow 0.2s;
+        }
+        .car-img-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+        .car-img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e8ecf2, #d0daea);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--gray-mid);
+            font-size: 0.85rem;
+        }
+        .car-img-placeholder svg {
+            opacity: 0.4;
+        }
+        /* Replace placeholder with actual image */
+        .car-img-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .car-img-label {
+            padding: 0.75rem 1rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text);
+            border-top: 1px solid var(--border);
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .specs-table th {
+            background: var(--navy);
+            color: var(--gold);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        .specs-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .specs-table tr:last-child td { border-bottom: none; }
+        .specs-table tr:nth-child(even) td { background: var(--gray-light); }
+
+        /* ── FINAL PROJECT ── */
+        .project-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0;
+        }
+        .project-tab {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-mid);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: inherit;
+        }
+        .project-tab:hover { color: var(--blue); }
+        .project-tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+            font-weight: 700;
+        }
+        .project-panel { display: none; }
+        .project-panel.active { display: block; }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .info-card h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--blue);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.8rem;
+        }
+        .info-card p { font-size: 0.95rem; color: #3a4a5c; }
+
+        .goal-list {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+        .goal-list li {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .goal-list li:last-child { border-bottom: none; }
+        .goal-list .check {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--blue), #0e4fa0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .goal-list .check::after {
+            content: '✓';
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+
+        .challenge-list {
+            list-style: none;
+        }
+        .challenge-list li {
+            padding: 1rem 1.2rem;
+            border-left: 3px solid var(--gold);
+            background: rgba(200,169,81,0.06);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        .challenge-list li strong {
+            display: block;
+            color: var(--navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .code-block {
+            background: var(--navy);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: #a8d8a8;
+            line-height: 1.7;
+            margin: 1rem 0;
+            position: relative;
+        }
+        .code-block .code-lang {
+            position: absolute;
+            top: 0.7rem;
+            right: 1rem;
+            font-size: 0.65rem;
+            color: var(--gray-mid);
+            letter-spacing: 0.1em;
+        }
+        .code-comment { color: #6a8fa0; }
+        .code-keyword { color: #c586c0; }
+        .code-string { color: #ce9178; }
+        .code-func { color: #dcdcaa; }
+
+        .video-embed-box {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa, #e8ecf2);
+        }
+        .video-embed-box p {
+            color: var(--gray-mid);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+        .btn-green {
+            display: inline-block;
+            background: #2ea44f;
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            border: 1px solid rgba(27,31,35,0.15);
+            box-shadow: 0 1px 0 rgba(27,31,35,0.1);
+        }
+        .btn-green:hover { background: #268f44; transform: translateY(-1px); }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .comparison-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            background: var(--card-bg);
+        }
+        .comparison-card h5 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+        }
+        .comparison-card.cheap h5 { color: var(--blue); border-color: var(--blue); }
+        .comparison-card.premium h5 { color: var(--gold); border-color: var(--gold); }
+        .comparison-card ul { list-style: none; }
+        .comparison-card li { font-size: 0.88rem; padding: 0.3rem 0; color: #3a4a5c; }
+        .comparison-card li::before { content: '→ '; color: var(--gray-mid); }
+
+        /* ── AUTONOMOUS LAPS ── */
+        .laps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+        .lap-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .lap-card:hover { box-shadow: 0 8px 28px rgba(26,111,196,0.12); transform: translateY(-3px); }
+        .lap-card-header {
+            background: var(--navy);
+            padding: 1.2rem 1.5rem;
+            position: relative;
+        }
+        .lap-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.3rem;
+        }
+        .lap-title {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .lap-body {
+            padding: 1.2rem 1.5rem;
+        }
+        .lap-body p {
+            font-size: 0.88rem;
+            color: #4a5a6a;
+            margin-bottom: 1rem;
+        }
+        .lap-tag {
+            display: inline-block;
+            background: rgba(26,111,196,0.1);
+            color: var(--blue);
+            border: 1px solid rgba(26,111,196,0.2);
+            border-radius: 100px;
+            padding: 2px 10px;
+            font-size: 0.72rem;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+            display: block;
+            width: fit-content;
+        }
+
+        /* ── ACKNOWLEDGEMENTS ── */
+        #acknowledgements {
+            background: var(--navy);
+            color: var(--white);
+        }
+        #acknowledgements .section-title { color: var(--white); }
+        .ack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .ack-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(200,169,81,0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .ack-card:hover {
+            background: rgba(200,169,81,0.08);
+            border-color: var(--gold);
+        }
+        .ack-role {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 0.12em;
+            margin-bottom: 0.5rem;
+        }
+        .ack-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.3rem;
+        }
+        .ack-desc {
+            font-size: 0.82rem;
+            color: var(--gray-mid);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #070e1a;
+            color: var(--gray-mid);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            font-family: 'Space Mono', monospace;
+        }
+        footer span { color: var(--gold); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 700px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: var(--navy); padding: 1rem; }
+            .nav-links.open { display: flex; }
+            .nav-links a { height: auto; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .hamburger { display: flex; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-    <a href="#team">Team Members</a>
-    <a href="#final-project">Final Project</a>
-    <a href="#autonomous-laps">Autonomous Laps</a>
-    <a href="#acknowledgements">Acknowledgements</a>
+    <div class="nav-brand">ECE/MAE 148 · TEAM 12 · WI26</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#toc">Contents</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#donkeycar">DonkeyCar</a></li>
+        <li><a href="#final-project">Final Project</a></li>
+        <li><a href="#autonomous-laps">Autonomous Laps</a></li>
+        <li><a href="#acknowledgements">Acknowledgements</a></li>
+    </ul>
+    <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </div>
 </nav>
 
-<header>
-    <h1>ECE/MAE 148 Team 12 WI26</h1>
-    <p>DonkerCar Path Following IMU Integration</p>
-</header>
-
-<div class="container">
-
-    <section id="team">
-        <h2>Team Members</h2>
-        <div class="team-grid">
-            <div class="member-card">
-                <strong>Woojin Lee</strong><br>
-                <small>[ECE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Spencer Herberich</strong><br>
-                <small>[MAE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Pelin Kaynak</strong><br>
-                <small>[MAE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Thomas Beauchataud</strong><br>
-                <small>[UPS]</small>
-            </div>
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-logos">
+        <!-- Replace src with actual logo paths, e.g. src="ucsd-logo.png" -->
+        <div class="logo-placeholder">
+            <span style="font-family:'Space Mono',monospace;color:var(--gold);font-size:1rem;font-weight:700;">UC<br>San Diego</span>
+            <span class="logo-label">University of California<br>San Diego</span>
         </div>
-    </section>
-    
-    <section id="final-project">
-        <h2>Final Project</h2>
-        <p>[Enter a detailed description of your final project here. You can explain the goals, the technical challenges, and the final outcome.]</p>
-    </section>
-
-    <section id="autonomous-laps">
-    <h2>Autonomous Laps</h2>
-        
-<p><strong>DonkeyCar - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the real DonkeyCar 3 autonomous laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/1k6vuTRKD1uA1FilJbSSl9JWeUeOFdBSk/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View Real DonkeyCar Autonomous Laps
-        </a>
-    </div>
-   
-        <p><strong>GPS - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the 3 autonomous GPS laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/1TkWeKOp9QAR9elpqoll9n0WdSUxgWwWP/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View GPS Autonomous Laps
-        </a>
+        <div class="logo-divider"></div>
+        <div class="logo-placeholder">
+            <span style="font-family:'Space Mono',monospace;color:var(--gold);font-size:0.9rem;font-weight:700;">Jacobs<br>School</span>
+            <span class="logo-label">Jacobs School<br>of Engineering</span>
+        </div>
     </div>
 
-    <p><strong>ROS2 - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the ROS2 3 autonomous laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/17f8Hzn6Xm5CPKD7XSKURB641qJMOlyrI/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View ROS2 Autonomous Laps
-        </a>
+    <div class="hero-badge">TEAM 12 · WINTER 2026</div>
+    <h1 class="hero-title">DonkeyCar<br><span>Path Following</span><br>IMU Integration</h1>
+    <p class="hero-subtitle">GPS + IMU sensor fusion for autonomous vehicle navigation — comparing affordable hardware against premium solutions.</p>
+    <div class="hero-meta">
+        <div class="hero-meta-item">
+            <div class="label">Course</div>
+            <div class="value">ECE/MAE 148</div>
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+            <div class="label">Team</div>
+            <div class="value">#12</div>
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+            <div class="label">Session</div>
+            <div class="value">Winter 2026</div>
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+            <div class="label">Members</div>
+            <div class="value">4 Students</div>
+        </div>
     </div>
 </section>
 
-    <section id="acknowledgements">
-        <h2>Acknowledgements</h2>
-        <p>[Professor Silberman, TA Jose, TA Jingli, EBU, Envision]</p>
-    </section>
+<!-- TABLE OF CONTENTS -->
+<section id="toc">
+    <div class="toc-inner">
+        <div class="section-label">NAVIGATION</div>
+        <h2 class="section-title">Table of Contents</h2>
+        <div class="toc-grid">
+            <a href="#team" class="toc-item">
+                <span class="toc-num">01</span>
+                <span class="toc-text">Team Members<small>ECE &amp; MAE students</small></span>
+            </a>
+            <a href="#donkeycar" class="toc-item">
+                <span class="toc-num">02</span>
+                <span class="toc-text">The DonkeyCar<small>Hardware &amp; platform specs</small></span>
+            </a>
+            <a href="#final-project" class="toc-item">
+                <span class="toc-num">03</span>
+                <span class="toc-text">Final Project<small>GPS + IMU sensor fusion</small></span>
+            </a>
+            <a href="#goals" class="toc-item">
+                <span class="toc-num">3.1</span>
+                <span class="toc-text">Goals<small>Project objectives</small></span>
+            </a>
+            <a href="#demo" class="toc-item">
+                <span class="toc-num">3.2</span>
+                <span class="toc-text">Demo Video<small>Car in action</small></span>
+            </a>
+            <a href="#code" class="toc-item">
+                <span class="toc-num">3.3</span>
+                <span class="toc-text">Code &amp; Integration<small>GPS, IMU &amp; DonkeyCar</small></span>
+            </a>
+            <a href="#challenges" class="toc-item">
+                <span class="toc-num">3.4</span>
+                <span class="toc-text">Challenges<small>Problems we encountered</small></span>
+            </a>
+            <a href="#future" class="toc-item">
+                <span class="toc-num">3.5</span>
+                <span class="toc-text">Future Work<small>What's next</small></span>
+            </a>
+            <a href="#autonomous-laps" class="toc-item">
+                <span class="toc-num">04</span>
+                <span class="toc-text">Autonomous Laps<small>Camera, GPS &amp; ROS2</small></span>
+            </a>
+            <a href="#acknowledgements" class="toc-item">
+                <span class="toc-num">05</span>
+                <span class="toc-text">Acknowledgements<small>Professor &amp; TAs</small></span>
+            </a>
+        </div>
+    </div>
+</section>
 
-</div>
+<!-- TEAM -->
+<section id="team" class="page-section">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">01 — TEAM</div>
+            <h2 class="section-title" style="font-family:'Space Mono',monospace;font-size:1.7rem;color:var(--navy);">Team Members</h2>
+            <p style="color:var(--gray-mid);font-size:0.95rem;">Four students from ECE and MAE collaborating on autonomous vehicle research.</p>
+        </div>
+        <div class="team-grid">
+            <!-- Member 1 — update name/major/role as needed -->
+            <div class="member-card">
+                <div class="avatar">WL</div>
+                <div class="member-name">Woojin Lee</div>
+                <div class="member-major">ECE</div>
+                <div class="member-role">Add your role here</div>
+            </div>
+            <!-- Member 2 -->
+            <div class="member-card">
+                <div class="avatar">SH</div>
+                <div class="member-name">Spencer Herberich</div>
+                <div class="member-major">MAE</div>
+                <div class="member-role">Add your role here</div>
+            </div>
+            <!-- Member 3 -->
+            <div class="member-card">
+                <div class="avatar">PK</div>
+                <div class="member-name">Pelin Kaynak</div>
+                <div class="member-major">MAE</div>
+                <div class="member-role">Add your role here</div>
+            </div>
+            <!-- Member 4 -->
+            <div class="member-card">
+                <div class="avatar">TB</div>
+                <div class="member-name">Thomas Beauchataud</div>
+                <div class="member-major">UPS</div>
+                <div class="member-role">Add your role here</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DONKEYCAR -->
+<section id="donkeycar" class="page-section" style="background:#f0f4fa;">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">02 — PLATFORM</div>
+            <h2 class="section-title" style="font-family:'Space Mono',monospace;font-size:1.7rem;color:var(--navy);">The DonkeyCar</h2>
+            <p style="color:var(--gray-mid);font-size:0.95rem;">The RC-car-based autonomous vehicle platform used throughout the course.</p>
+        </div>
+
+        <!-- Image gallery — replace placeholders with actual car photos -->
+        <div class="car-image-grid">
+            <!-- To add a real image, replace the div.car-img-placeholder with: <img src="your-photo.jpg" alt="Front view"> -->
+            <div class="car-img-card">
+                <div class="car-img-placeholder">
+                    <!-- Replace this entire div with: <img src="front-view.jpg" alt="Front View"> -->
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <rect x="3" y="8" width="18" height="10" rx="2"/>
+                        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+                        <path d="M5 8l2-4h10l2 4"/>
+                    </svg>
+                    <span>📷 Add front-view.jpg here</span>
+                </div>
+                <div class="car-img-label">🔭 Front View</div>
+            </div>
+            <div class="car-img-card">
+                <div class="car-img-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <rect x="3" y="8" width="18" height="10" rx="2"/>
+                        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+                    </svg>
+                    <span>📷 Add birdseye-view.jpg here</span>
+                </div>
+                <div class="car-img-label">🦅 Bird's-Eye View</div>
+            </div>
+            <div class="car-img-card">
+                <div class="car-img-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <rect x="3" y="8" width="18" height="10" rx="2"/>
+                        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+                        <path d="M21 8l-2-4H5L3 8"/>
+                    </svg>
+                    <span>📷 Add side-view.jpg here</span>
+                </div>
+                <div class="car-img-label">↔ Side View</div>
+            </div>
+            <div class="car-img-card">
+                <div class="car-img-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+                    </svg>
+                    <span>📷 Add electronics.jpg here</span>
+                </div>
+                <div class="car-img-label">⚡ Electronics / Sensors</div>
+            </div>
+        </div>
+
+        <!-- Specs table -->
+        <h3 style="font-family:'Space Mono',monospace;font-size:1rem;color:var(--navy);margin-top:2.5rem;margin-bottom:0.5rem;">Platform Specifications</h3>
+        <table class="specs-table">
+            <thead>
+                <tr><th>Component</th><th>Details</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Base Vehicle</td><td>1/10 Scale RC Car</td></tr>
+                <tr><td>Motor Controller</td><td>VESC (Vedder Electronic Speed Controller)</td></tr>
+                <tr><td>Compute</td><td>NVIDIA Jetson Nano</td></tr>
+                <tr><td>Software Framework</td><td>DonkeyCar (Python), ROS2</td></tr>
+                <tr><td>Camera</td><td>Wide-angle CSI camera</td></tr>
+                <tr><td>GPS (Budget)</td><td>[Add your budget GPS module name]</td></tr>
+                <tr><td>GPS (Premium)</td><td>~$300 GPS module with internal IMU</td></tr>
+                <tr><td>External IMU</td><td>[Add your IMU module name]</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- FINAL PROJECT -->
+<section id="final-project" class="page-section">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">03 — FINAL PROJECT</div>
+            <h2 class="section-title" style="font-family:'Space Mono',monospace;font-size:1.7rem;color:var(--navy);">GPS + IMU Sensor Fusion</h2>
+            <p style="color:var(--gray-mid);font-size:0.95rem;">
+                Comparing a budget GPS + external IMU (with Kalman filtering) against a premium all-in-one $300 GPS/IMU unit for autonomous track navigation.
+            </p>
+        </div>
+
+        <!-- Comparison -->
+        <div class="comparison-grid" style="margin-bottom:2rem;">
+            <div class="comparison-card cheap">
+                <h5>💸 Budget Setup</h5>
+                <ul>
+                    <li>Cheap GPS module</li>
+                    <li>External IMU sensor</li>
+                    <li>Custom Kalman filter</li>
+                    <li>Manual sensor fusion code</li>
+                    <li>Cost-effective solution</li>
+                </ul>
+            </div>
+            <div class="comparison-card premium">
+                <h5>💰 Premium Setup</h5>
+                <ul>
+                    <li>~$300 GPS unit</li>
+                    <li>Internal IMU (onboard)</li>
+                    <li>Onboard sensor fusion</li>
+                    <li>Plug-and-play integration</li>
+                    <li>High accuracy out-of-box</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tabs for sub-pages -->
+        <div class="project-nav">
+            <button class="project-tab active" onclick="showTab('goals', this)">3.1 Goals</button>
+            <button class="project-tab" onclick="showTab('demo', this)">3.2 Demo Video</button>
+            <button class="project-tab" onclick="showTab('code', this)">3.3 Code</button>
+            <button class="project-tab" onclick="showTab('challenges', this)">3.4 Challenges</button>
+            <button class="project-tab" onclick="showTab('future', this)">3.5 Future Work</button>
+        </div>
+
+        <!-- 3.1 GOALS -->
+        <div id="goals" class="project-panel active">
+            <div class="info-card">
+                <h4>PROJECT OBJECTIVES</h4>
+                <p>Our primary goal was to evaluate whether a low-cost GPS + external IMU combination, enhanced by a Kalman filter, can match or approach the navigation accuracy of an expensive integrated GPS/IMU solution on an autonomous track.</p>
+            </div>
+            <ul class="goal-list">
+                <li><span class="check"></span>Integrate a budget GPS module and external IMU with the DonkeyCar framework</li>
+                <li><span class="check"></span>Implement a Kalman filter for GPS + IMU sensor fusion</li>
+                <li><span class="check"></span>Complete autonomous laps using the budget sensor stack</li>
+                <li><span class="check"></span>Benchmark performance against the $300 premium GPS/IMU unit</li>
+                <li><span class="check"></span>Document the accuracy, latency, and reliability differences between both setups</li>
+                <li><span class="check"></span>[Add more goals here]</li>
+            </ul>
+        </div>
+
+        <!-- 3.2 DEMO VIDEO -->
+        <div id="demo" class="project-panel">
+            <div class="video-embed-box">
+                <p>Watch our DonkeyCar complete autonomous laps using GPS + IMU sensor fusion.</p>
+                <!-- Replace href with your actual video link -->
+                <a href="#" class="btn-green" target="_blank">▶ Watch Final Project Demo</a>
+            </div>
+            <p style="font-size:0.85rem;color:var(--gray-mid);margin-top:0.8rem;text-align:center;">
+                [Update the link above with your actual demo video URL]
+            </p>
+        </div>
+
+        <!-- 3.3 CODE -->
+        <div id="code" class="project-panel">
+            <div class="info-card">
+                <h4>INTEGRATION OVERVIEW</h4>
+                <p>We wrote Python code to bridge the GPS and IMU data streams into the DonkeyCar parts system. Below is a simplified snippet showing how sensor data is fused using a Kalman filter and passed to the vehicle controller.</p>
+            </div>
+            <div class="code-block">
+                <span class="code-lang">PYTHON</span>
+<pre><span class="code-comment"># GPS + IMU Kalman Filter Integration for DonkeyCar
+# Team 12 — ECE/MAE 148 WI26</span>
+
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> donkeycar.parts.gps <span class="code-keyword">import</span> <span class="code-func">GPS</span>
+<span class="code-keyword">from</span> imu_driver <span class="code-keyword">import</span> <span class="code-func">IMU</span>
+
+<span class="code-keyword">class</span> <span class="code-func">KalmanGPSIMU</span>:
+    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(self):
+        <span class="code-comment"># State: [x, y, vx, vy]</span>
+        self.x = np.zeros(<span class="code-string">4</span>)
+        self.P = np.eye(<span class="code-string">4</span>) * <span class="code-string">1000</span>
+        self.Q = np.eye(<span class="code-string">4</span>) * <span class="code-string">0.1</span>   <span class="code-comment"># Process noise</span>
+        self.R = np.eye(<span class="code-string">2</span>) * <span class="code-string">5.0</span>    <span class="code-comment"># GPS measurement noise</span>
+
+    <span class="code-keyword">def</span> <span class="code-func">predict</span>(self, ax, ay, dt):
+        <span class="code-comment"># Predict step using IMU acceleration</span>
+        F = np.array([[<span class="code-string">1</span>,<span class="code-string">0</span>,dt,<span class="code-string">0</span>],[<span class="code-string">0</span>,<span class="code-string">1</span>,<span class="code-string">0</span>,dt],[<span class="code-string">0</span>,<span class="code-string">0</span>,<span class="code-string">1</span>,<span class="code-string">0</span>],[<span class="code-string">0</span>,<span class="code-string">0</span>,<span class="code-string">0</span>,<span class="code-string">1</span>]])
+        B = np.array([[<span class="code-string">0.5</span>*dt**<span class="code-string">2</span>,<span class="code-string">0</span>],[<span class="code-string">0</span>,<span class="code-string">0.5</span>*dt**<span class="code-string">2</span>],[dt,<span class="code-string">0</span>],[<span class="code-string">0</span>,dt]])
+        u = np.array([ax, ay])
+        self.x = F @ self.x + B @ u
+        self.P = F @ self.P @ F.T + self.Q
+
+    <span class="code-keyword">def</span> <span class="code-func">update</span>(self, gps_x, gps_y):
+        <span class="code-comment"># Update step using GPS measurement</span>
+        H = np.array([[<span class="code-string">1</span>,<span class="code-string">0</span>,<span class="code-string">0</span>,<span class="code-string">0</span>],[<span class="code-string">0</span>,<span class="code-string">1</span>,<span class="code-string">0</span>,<span class="code-string">0</span>]])
+        z = np.array([gps_x, gps_y])
+        y = z - H @ self.x
+        S = H @ self.P @ H.T + self.R
+        K = self.P @ H.T @ np.linalg.inv(S)
+        self.x = self.x + K @ y
+        self.P = (np.eye(<span class="code-string">4</span>) - K @ H) @ self.P
+        <span class="code-keyword">return</span> self.x[:<span class="code-string">2</span>]  <span class="code-comment"># Return fused position</span></pre>
+            </div>
+            <p style="font-size:0.85rem;color:var(--gray-mid);">
+                [Replace or extend this snippet with your actual integration code. You can also link to your GitHub repository below.]
+            </p>
+            <div style="margin-top:1rem;">
+                <a href="#" class="btn-green" target="_blank">🔗 View Full Code on GitHub</a>
+            </div>
+        </div>
+
+        <!-- 3.4 CHALLENGES -->
+        <div id="challenges" class="project-panel">
+            <ul class="challenge-list">
+                <li>
+                    <strong>GPS Signal Latency</strong>
+                    The budget GPS module had higher latency compared to the premium unit, causing the vehicle to react slowly to track changes. We partially mitigated this using predictive filtering from the IMU.
+                </li>
+                <li>
+                    <strong>IMU Drift Accumulation</strong>
+                    Over longer laps, small errors in IMU readings accumulated (gyroscope drift), causing the Kalman filter's position estimate to diverge from the true path.
+                </li>
+                <li>
+                    <strong>DonkeyCar Integration Complexity</strong>
+                    Connecting external IMU and GPS into DonkeyCar's parts pipeline required custom part classes and careful synchronization of data streams at different update rates.
+                </li>
+                <li>
+                    <strong>VESC Tuning</strong>
+                    Getting consistent throttle and steering response from the VESC required manual PID tuning for our specific vehicle weight and wheel setup.
+                </li>
+                <li>
+                    <strong>[Add your own challenges here]</strong>
+                    Describe additional hardware, software, or integration challenges your team faced.
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3.5 FUTURE WORK -->
+        <div id="future" class="project-panel">
+            <div class="info-card">
+                <h4>POTENTIAL FUTURE DIRECTIONS</h4>
+                <p>If we were to continue this project, here are the improvements and explorations we would pursue:</p>
+            </div>
+            <ul class="goal-list">
+                <li><span class="check"></span>Implement an Extended Kalman Filter (EKF) or Unscented Kalman Filter (UKF) for nonlinear motion models</li>
+                <li><span class="check"></span>Add RTK-GPS correction for centimeter-level positioning accuracy on the budget hardware</li>
+                <li><span class="check"></span>Fuse camera data with GPS+IMU for a robust multi-modal navigation system</li>
+                <li><span class="check"></span>Deploy the pipeline in ROS2 Nav2 for more sophisticated path planning</li>
+                <li><span class="check"></span>Test in GPS-denied environments and evaluate IMU-only dead reckoning performance</li>
+                <li><span class="check"></span>[Add your own future work ideas here]</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- AUTONOMOUS LAPS -->
+<section id="autonomous-laps" class="page-section" style="background:#f0f4fa;">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">04 — AUTONOMOUS LAPS</div>
+            <h2 class="section-title" style="font-family:'Space Mono',monospace;font-size:1.7rem;color:var(--navy);">Pre-Final Autonomous Assignments</h2>
+            <p style="color:var(--gray-mid);font-size:0.95rem;">Three assignments completed before the final project, each using a different navigation strategy.</p>
+        </div>
+        <div class="laps-grid">
+
+            <!-- Assignment 1: Camera -->
+            <div class="lap-card">
+                <div class="lap-card-header">
+                    <div class="lap-num">ASSIGNMENT 01</div>
+                    <div class="lap-title">Camera-Based Laps</div>
+                </div>
+                <div class="lap-body">
+                    <span class="lap-tag">DonkeyCar · Vision</span>
+                    <p>The DonkeyCar completed 3 laps of a prepared track using only its wide-angle camera and the DonkeyCar behavioral cloning / lane-following model.</p>
+                    <div class="video-embed-box" style="padding:1rem;">
+                        <p style="font-size:0.82rem;margin-bottom:0.8rem;">View recording on Google Drive</p>
+                        <a href="https://drive.google.com/file/d/1k6vuTRKD1uA1FilJbSSl9JWeUeOFdBSk/view"
+                           target="_blank" class="btn-green" style="padding:0.6rem 1.2rem;font-size:0.82rem;">
+                           ▶ Watch Camera Laps
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assignment 2: GPS -->
+            <div class="lap-card">
+                <div class="lap-card-header">
+                    <div class="lap-num">ASSIGNMENT 02</div>
+                    <div class="lap-title">GPS-Only Laps</div>
+                </div>
+                <div class="lap-body">
+                    <span class="lap-tag">GPS · No Camera</span>
+                    <p>The DonkeyCar completed 3 laps relying exclusively on GPS data for localization and path following — no camera input used.</p>
+                    <div class="video-embed-box" style="padding:1rem;">
+                        <p style="font-size:0.82rem;margin-bottom:0.8rem;">View recording on Google Drive</p>
+                        <a href="https://drive.google.com/file/d/1TkWeKOp9QAR9elpqoll9n0WdSUxgWwWP/view"
+                           target="_blank" class="btn-green" style="padding:0.6rem 1.2rem;font-size:0.82rem;">
+                           ▶ Watch GPS Laps
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assignment 3: ROS2 -->
+            <div class="lap-card">
+                <div class="lap-card-header">
+                    <div class="lap-num">ASSIGNMENT 03</div>
+                    <div class="lap-title">ROS2 Laps</div>
+                </div>
+                <div class="lap-body">
+                    <span class="lap-tag">ROS2 · Middleware</span>
+                    <p>The DonkeyCar completed 3 laps using custom ROS2 nodes for sensor integration, path planning, and motor control via the VESC.</p>
+                    <div class="video-embed-box" style="padding:1rem;">
+                        <p style="font-size:0.82rem;margin-bottom:0.8rem;">View recording on Google Drive</p>
+                        <a href="https://drive.google.com/file/d/17f8Hzn6Xm5CPKD7XSKURB641qJMOlyrI/view"
+                           target="_blank" class="btn-green" style="padding:0.6rem 1.2rem;font-size:0.82rem;">
+                           ▶ Watch ROS2 Laps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ACKNOWLEDGEMENTS -->
+<section id="acknowledgements" class="page-section">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label" style="color:var(--gold);">05 — ACKNOWLEDGEMENTS</div>
+            <h2 class="section-title" style="font-family:'Space Mono',monospace;font-size:1.7rem;color:var(--navy);">Thank You</h2>
+            <p style="color:var(--gray-mid);font-size:0.95rem;">We are grateful to the following people and organizations for their support throughout ECE/MAE 148.</p>
+        </div>
+        <div class="ack-grid">
+            <div class="ack-card" style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem;">
+                <div class="ack-role" style="color:var(--blue);">PROFESSOR</div>
+                <div class="ack-name" style="color:var(--navy);">Professor Silberman</div>
+                <div class="ack-desc" style="color:var(--gray-mid);">Course instruction, project guidance, and making autonomous vehicles accessible to students from all engineering backgrounds.</div>
+            </div>
+            <div class="ack-card" style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem;">
+                <div class="ack-role" style="color:var(--blue);">TEACHING ASSISTANT</div>
+                <div class="ack-name" style="color:var(--navy);">TA Jose</div>
+                <div class="ack-desc" style="color:var(--gray-mid);">Hands-on lab support, hardware debugging, and patient guidance through ROS2 and VESC integration challenges.</div>
+            </div>
+            <div class="ack-card" style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem;">
+                <div class="ack-role" style="color:var(--blue);">TEACHING ASSISTANT</div>
+                <div class="ack-name" style="color:var(--navy);">TA Jingli</div>
+                <div class="ack-desc" style="color:var(--gray-mid);">Technical support for sensor integration, DonkeyCar framework questions, and troubleshooting during lab sessions.</div>
+            </div>
+            <div class="ack-card" style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1.5rem;">
+                <div class="ack-role" style="color:var(--blue);">FACILITY</div>
+                <div class="ack-name" style="color:var(--navy);">EBU &amp; Envision</div>
+                <div class="ack-desc" style="color:var(--gray-mid);">Access to lab space, hardware resources, and testing tracks at the Engineering Building Unit and Envision Maker Studio.</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer>
-    <p>&copy; 2026 | [Project Name] | Built with GitHub Pages</p>
+    <p>&copy; 2026 · ECE/MAE 148 · <span>Team 12</span> · Winter Quarter · UC San Diego</p>
 </footer>
 
+<script>
+    function showTab(id, btn) {
+        document.querySelectorAll('.project-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.project-tab').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+</script>
 </body>
 </html>
+
