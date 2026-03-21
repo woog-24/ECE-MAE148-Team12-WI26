@@ -3,14 +3,12 @@
 ### <div align="center"> ECE/MAE 148 Final Project </div>
 #### <div align="center"> Team 12 - Winter 2026 </div>
 
-<div align="center">
-     <img src="Images/YOUR_IMAGE.png" width="800" height="600">
-</div>
+
 
 ## Table of Contents
 <ol>
     <li><a href="#team-members">Team Members</a></li>
-    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#final-project">Final Project</a></li>
     <li><a href="#what-we-promised">What We Promised</a></li>
     <li><a href="#accomplishments">Accomplishments</a></li>
     <li><a href="#challenges">Challenges</a></li>
@@ -34,8 +32,8 @@
 
 <hr>
 
-## Abstract
-[Provide a brief overview of your project, including its goals, methodologies, and significance. Discuss what the project modifies or improves, and any specific technologies or algorithms used.]
+## Final Project
+Redesigning our Donkeycar with inexpensive components(IMU and cheaper GPS) to lower the cost of the robot, but still perform as good as the robot with expensive components. 
 
 <div align="center">
      <img src="Images/YOUR_IMAGE.png" width="600" height="400">
@@ -45,25 +43,26 @@
 
 ## What We Promised
 ### Must Have
-* [List essential features or goals that were promised.]
-
-### Nice to Have
-* [List additional features that would be beneficial but not essential.]
+* IMU implemented
+* Kalman filter implemented
+* Bridge between IMU, GPS, and Donkeycar
 
 <hr>
 
 ## Accomplishments
-* [Highlight key achievements and milestones reached during the project.]
+* Smooth communication between IMU, GPS, and Donkeycar
+* Completing the GPS lap with implemented IMU and cheaper GPS
+* Increasing the VESC throttle to 0.4 to make the car drive faster but still maneuver smoothly
 
 <hr>
 
 ## Challenges
-* [Describe any significant challenges faced during the project and how they were addressed.]
+* Struggled a good amount of time to figure out the delay bwteen IMU and Donkeycar environment 
 
 <hr>
 
 ## Future Work
-* [Outline potential future directions for the project, including improvements and extensions.]
+* Completing the GPS laps with 100% VESC throttle while maintaining smooth maneuver
 
 <hr>
 
