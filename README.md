@@ -1,5 +1,5 @@
 # <div align="center">DonkeyCar Path Following IMU Integration</div>
-![image](URL_TO_YOUR_IMAGE)
+![image](https://xiltrix.com/wp-content/uploads/2018/02/UCSD-Jacobs-School-of-Engineering-XiltriX.jpg)
 ### <div align="center"> ECE/MAE 148 Final Project </div>
 #### <div align="center"> Team 12 - Winter 2026 </div>
 
