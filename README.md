@@ -15,6 +15,7 @@
     <li><a href="#challenges">Challenges</a></li>
     <li><a href="#future-work">Future Work</a></li>  
     <li><a href="#final-project-video">Final Project Video</a></li>
+    <li><a href="#autonomous-laps-videos">Autonomous Laps Videos</a></li>
     <li><a href="#software">Software</a></li>
     <li><a href="#hardware">Hardware</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -34,16 +35,27 @@
 ## DonkeyCar
 <div align="center">
     * Front View
-    <img src="Images/YOUR_IMAGE.png" width="600" height="400"> 
+    <img src="Images/YOUR_IMAGE.png" width="600" height="400">
+</div>
+
+<div align="center">
     * Left View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
+</div>
+
+<div align="center">
     * Right View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
+</div>
+
+<div align="center">
     * Behind View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
+</div>
+
+<div align="center">
     * Birdeye View
     <img src="Images/YOUR_IMAGE.png" width="600" height="400">
-
 </div>
 
 <hr>
@@ -93,6 +105,30 @@ Redesigning our Donkeycar with inexpensive components(IMU and cheaper GPS) to lo
 
 <hr>
 
+## Autonomous Laps Videos 
+<div align="center">
+     
+#### **[Real DonkeyCar 3 Autonomous Laps]**
+[<img width="416" height="359" alt="Screenshot 2026-03-20 214816" src="https://github.com/user-attachments/assets/5dfbbc5f-c8b2-4af8-9304-6d8c184babf0" />](https://drive.google.com/file/d/1k6vuTRKD1uA1FilJbSSl9JWeUeOFdBSk/view)
+
+</div>
+
+<div align="center">
+
+#### **[GPS 3 Autonomous Laps]**
+[<img width="414" height="352" alt="Screenshot 2026-03-20 214537" src="https://github.com/user-attachments/assets/4d0d1677-4551-4711-8e1d-92527df9b849" />](https://drive.google.com/file/d/1TkWeKOp9QAR9elpqoll9n0WdSUxgWwWP/view?usp=drive_link)
+
+</div>
+
+<div align="center">
+
+#### **[ROS2 3 Autonomous Laps]**
+[<img width="414" height="352" alt="Screenshot 2026-03-20 214231" src="https://github.com/user-attachments/assets/442c28bd-0026-4777-b7f6-d377de814f54" />](https://drive.google.com/file/d/17f8Hzn6Xm5CPKD7XSKURB641qJMOlyrI/view?usp=drive_link)
+
+</div>
+
+<hr>
+
 ## Software
 ### Overall Architecture
 [Briefly describe the software architecture and how it integrates with any existing frameworks.]
@@ -100,14 +136,17 @@ Redesigning our Donkeycar with inexpensive components(IMU and cheaper GPS) to lo
 <hr>
 
 ## Hardware 
-* __[List any hardware used in your project, including specifications and functions.]__
 
 __Parts List__
-* [Item 1]
-* [Item 2]
-* [Item 3]
-* ...
-
+* [Board]
+  ![Project Screenshot](https://cdn.discordapp.com/attachments/1457986642462769226/1484727828967854231/Screenshot_2026-03-20_183535.png?ex=69bf480b&is=69bdf68b&hm=41a86cc5967c6ba73cc0e7ad1f3d259fe6e608047ce8acb773b951c47b01687f&)
+* [Camera Mount]
+  ![Project Screenshot](https://cdn.discordapp.com/attachments/1457986642462769226/1484727831480111195/Screenshot_2026-03-20_183759.png?ex=69bf480b&is=69bdf68b&hm=f2ce9c1dcd6c87d6c288559c0b81ea5a0a242da425f56f49902df51ccf88975c&)
+* [Lidar Mount]
+  ![Project Screenshot](https://cdn.discordapp.com/attachments/1457986642462769226/1484727830951497769/Screenshot_2026-03-20_183720.png?ex=69bf480b&is=69bdf68b&hm=9da9fcd25316f9203ae6aba8728b08cb8d852d249d6317ae96d54ef6dbf9b1a1&)
+* [All Components Combined]
+  ![Project Screenshot](https://cdn.discordapp.com/attachments/1457986642462769226/1484727829366308874/Screenshot_2026-03-20_183557.png?ex=69bf480b&is=69bdf68b&hm=f4314217ef272e2d9a6878bfda306905eabc053d96c85370848032eb600ac2eb&)
+  
 <hr>
 
 ## Acknowledgements
