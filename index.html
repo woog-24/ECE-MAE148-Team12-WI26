@@ -1,119 +1,683 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[ECE/MAE 148 Team 12 WI26] | Documentation</title>
-    <style>
-        :root { --primary-color: #0366d6; --bg-gray: #f6f8fa; --border-gray: #d1d5da; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 0; background-color: var(--bg-gray); }
-        
-        nav { background: #24292e; padding: 1rem; position: sticky; top: 0; display: flex; justify-content: center; z-index: 1000; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        nav a:hover { color: #58a6ff; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPS/IMU Fusion — DonkeyCar | ECE/MAE 148 Team 12</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header { background: white; border-bottom: 1px solid var(--border-gray); padding: 3rem 2rem; text-align: center; }
-        h1 { margin: 0; color: var(--primary-color); }
-        
-        .container { padding: 2rem; }
-        section { background: white; padding: 2rem; border-radius: 6px; border: 1px solid var(--border-gray); margin-bottom: 2rem; scroll-margin-top: 70px; }
-        h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.5rem; color: #24292e; margin-top: 0; }
-        
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .member-card { background: var(--bg-gray); padding: 1rem; border-radius: 4px; text-align: center; border: 1px solid #e1e4e8; }
-        
-        footer { text-align: center; padding: 2rem; color: #6a737d; font-size: 0.8rem; }
-    </style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111318;
+      --card: #16191f;
+      --border: #2a2e38;
+      --green: #00e5a0;
+      --green-dim: rgba(0,229,160,0.12);
+      --green-glow: rgba(0,229,160,0.25);
+      --text: #c8cdd8;
+      --text-dim: #6b7280;
+      --white: #f0f2f5;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.25s;
+    }
+
+    .hero h1 span { color: var(--green); }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 560px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.4s;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.55s;
+    }
+
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      scroll-margin-top: 70px;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    p { color: var(--text); margin-bottom: 1rem; }
+
+    /* ── PROBLEM / SOLUTION CARDS ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--green); transform: translateY(-2px); }
+
+    .card-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .card-label.red { color: #ff6b6b; }
+    .card-label.green { color: var(--green); }
+
+    .card h3 {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .card p { font-size: 0.9rem; margin: 0; }
+
+    /* ── PIPELINE DIAGRAM ── */
+    .pipeline {
+      margin: 2.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .pipe-node {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      min-width: 130px;
+      flex-shrink: 0;
+    }
+
+    .pipe-node.highlight {
+      border-color: var(--green);
+      background: var(--green-dim);
+    }
+
+    .pipe-node .node-title {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .pipe-node .node-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-top: 0.3rem;
+    }
+
+    .pipe-node.highlight .node-sub { color: var(--green); }
+
+    .pipe-arrow {
+      font-family: var(--mono);
+      color: var(--text-dim);
+      padding: 0 0.5rem;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+
+    .code-header {
+      background: #1c1f27;
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .code-dot.r { background: #ff5f57; }
+    .code-dot.y { background: #ffbd2e; }
+    .code-dot.g { background: #28ca41; }
+
+    .code-filename {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-left: 0.5rem;
+    }
+
+    pre {
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .kw { color: #c792ea; }
+    .fn { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm { color: #546e7a; font-style: italic; }
+    .num { color: #f78c6c; }
+    .gr { color: var(--green); }
+
+    /* ── STEPS ── */
+    .steps { margin-top: 2rem; }
+
+    .step {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      width: 2rem; height: 2rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .step-content h4 {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .step-content p { font-size: 0.88rem; margin: 0; }
+
+    .inline-code {
+      font-family: var(--mono);
+      font-size: 0.82em;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.1em 0.4em;
+      color: var(--green);
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .member {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .member:hover { border-color: var(--green); }
+
+    .member-name {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .member-dept {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-top: 0.35rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 7rem 1.25rem 3rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .two-col { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.25rem; }
+      .pipeline { flex-direction: column; align-items: flex-start; }
+      .pipe-arrow { transform: rotate(90deg); margin-left: 55px; }
+      .divider { margin: 0 1.25rem; }
+    }
+  </style>
 </head>
 <body>
 
 <nav>
-    <a href="#team">Team Members</a>
-    <a href="#final-project">Final Project</a>
-    <a href="#autonomous-laps">Autonomous Laps</a>
-    <a href="#acknowledgements">Acknowledgements</a>
+  <a class="nav-logo" href="#">// GPS·IMU FUSION</a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#setup">Setup</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#team">Team</a>
+  </div>
 </nav>
 
-<header>
-    <h1>ECE/MAE 148 Team 12 WI26</h1>
-    <p>DonkerCar Path Following IMU Integration</p>
-</header>
-
-<div class="container">
-
-    <section id="team">
-        <h2>Team Members</h2>
-        <div class="team-grid">
-            <div class="member-card">
-                <strong>Woojin Lee</strong><br>
-                <small>[ECE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Spencer Herberich</strong><br>
-                <small>[MAE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Pelin Kaynak</strong><br>
-                <small>[MAE]</small>
-            </div>
-            <div class="member-card">
-                <strong>Thomas Beauchataud</strong><br>
-                <small>[UPS]</small>
-            </div>
-        </div>
-    </section>
-    
-    <section id="final-project">
-        <h2>Final Project</h2>
-        <p>[Enter a detailed description of your final project here. You can explain the goals, the technical challenges, and the final outcome.]</p>
-    </section>
-
-    <section id="autonomous-laps">
-    <h2>Autonomous Laps</h2>
-        
-<p><strong>DonkeyCar - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the real DonkeyCar 3 autonomous laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/1k6vuTRKD1uA1FilJbSSl9JWeUeOFdBSk/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View Real DonkeyCar Autonomous Laps
-        </a>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">ECE/MAE 148 · Team 12 · WI26</div>
+  <h1>GPS + IMU<br/><span>Fusion Navigation</span><br/>for DonkeyCar</h1>
+  <p class="hero-sub">
+    Kalman filter fusion of a BNO08x IMU at 50 Hz with a NEO-F10N GPS at 10 Hz;
+    eliminating position freeze in the DonkeyCar path follower.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-value">50</span>
+      <span class="stat-label">Hz position rate</span>
     </div>
-   
-        <p><strong>GPS - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the 3 autonomous GPS laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/1TkWeKOp9QAR9elpqoll9n0WdSUxgWwWP/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View GPS Autonomous Laps
-        </a>
+    <div class="stat-item">
+      <span class="stat-value">5</span>
+      <span class="stat-label">State Kalman filter</span>
     </div>
-
-    <p><strong>ROS2 - 3 Autonomous Laps</strong></p>
-    <div style="padding: 2rem; border: 1px solid var(--border-gray); border-radius: 6px; text-align: center; background-color: white; margin: 1rem 0;">
-        <p style="margin-bottom: 1.5rem; color: #586069;">The full video recording of the ROS2 3 autonomous laps is hosted on Google Drive.</p>
-        
-        <a href="https://drive.google.com/file/d/17f8Hzn6Xm5CPKD7XSKURB641qJMOlyrI/view" 
-           target="_blank" 
-           style="background-color: #2ea44f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: 1px solid rgba(27,31,35,.15); box-shadow: 0 1px 0 rgba(27,31,35,.1);">
-           View ROS2 Autonomous Laps
-        </a>
+    <div class="stat-item">
+      <span class="stat-value">10×</span>
+      <span class="stat-label">smoother than GPS-only</span>
     </div>
-</section>
-
-    <section id="acknowledgements">
-        <h2>Acknowledgements</h2>
-        <p>[Professor Silberman, TA Jose, TA Jingli, EBU, Envision]</p>
-    </section>
-
+  </div>
 </div>
 
+<hr class="divider" />
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">// 01 — Overview</div>
+  <h2>The Problem & Solution</h2>
+  <p>
+    DonkeyCar's built-in GPS path follower updates position only as fast as the GPS receiver outputs fixes: 10 Hz. 
+    The PID control loop runs at 50 Hz, meaning it stalls on stale position data between fixes, 
+    causing jerky steering and poor path tracking.
+  </p>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-label red">⚠ Without Fusion</div>
+      <h3>GPS-Only (10 Hz)</h3>
+      <p>Position freezes between GPS fixes. PID loop outruns data. Heading comes from GPS course only, unreliable at low speeds or when stopped.</p>
+    </div>
+    <div class="card">
+      <div class="card-label green">✓ With Fusion</div>
+      <h3>IMU + GPS (50 Hz)</h3>
+      <p>IMU propagates position forward between GPS fixes. Kalman filter blends both sources. Smooth continuous heading from BNO08x quaternion.</p>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-node">
+      <div class="node-title">NEO-F10N</div>
+      <div class="node-sub">10 Hz · GPS/Galileo/BDS</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node highlight">
+      <div class="node-title">Kalman Filter</div>
+      <div class="node-sub">[x, y, vx, vy, yaw]</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node highlight">
+      <div class="node-title">pos/x · pos/y</div>
+      <div class="node-sub">50 Hz · UTM coords</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node">
+      <div class="node-title">PID Follower</div>
+      <div class="node-sub">path_follow part</div>
+    </div>
+  </div>
+  <div class="pipeline" style="margin-top: 0; padding-top: 0;">
+    <div class="pipe-node">
+      <div class="node-title">BNO08x IMU</div>
+      <div class="node-sub">50 Hz · I2C</div>
+    </div>
+    <div class="pipe-arrow" style="color: transparent;">→</div>
+    <div class="pipe-node" style="min-width:130px; opacity:0; pointer-events:none;"></div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SETUP -->
+<section id="setup">
+  <div class="section-label">// 02 — Setup</div>
+  <h2>Installation</h2>
+  <p>Assumes DonkeyCar is already installed with a virtual environment at <span class="inline-code">~/donkey_env</span>.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Install dependencies</h4>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+            <span class="code-filename">terminal</span>
+          </div>
+          <pre>source ~/donkey_env/bin/activate
+pip install adafruit-circuitpython-bno08x pyubx2 pyserial utm</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Copy the fusion part into DonkeyCar</h4>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+            <span class="code-filename">terminal</span>
+          </div>
+          <pre>cp gps_imu_fused_bno08x.py \
+   ~/donkey_env/lib/python3.11/site-packages/donkeycar/parts/</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Configure GPS receiver (run once)</h4>
+        <p style="margin-bottom:0.75rem;">Sets 10 Hz multi-GNSS mode. Settings are saved to battery-backed RAM, survives power cycles.</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+            <span class="code-filename">terminal</span>
+          </div>
+          <pre>python set_gps_10hz.py</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Patch manage.py</h4>
+        <p style="margin-bottom:0.75rem;">Replace the entire <span class="inline-code">add_gps</span> function in <span class="inline-code">~/projects/mycar/manage.py</span>:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+            <span class="code-filename">manage.py</span>
+          </div>
+          <pre><span class="kw">def</span> <span class="fn">add_gps</span>(V, cfg):
+    <span class="kw">if</span> cfg.HAVE_GPS:
+        <span class="kw">from</span> donkeycar.parts.gps_imu_fused_bno08x <span class="kw">import</span> GpsImuFusedBno08x
+        fusion = <span class="fn">GpsImuFusedBno08x</span>(
+            gps_port=cfg.GPS_SERIAL,
+            gps_baud=cfg.GPS_SERIAL_BAUDRATE,
+            debug=cfg.GPS_DEBUG,
+        )
+        V.<span class="fn">add</span>(fusion, outputs=[<span class="str">'pos/x'</span>, <span class="str">'pos/y'</span>], threaded=<span class="kw">True</span>)
+        <span class="kw">return None</span>
+    <span class="kw">return None</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Update myconfig.py</h4>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+            <span class="code-filename">myconfig.py</span>
+          </div>
+          <pre>GPS_DEBUG = <span class="kw">True</span>   <span class="cm"># set False once working</span>
+GPS_SERIAL = <span class="str">"/dev/ttyUSB0"</span>
+GPS_SERIAL_BAUDRATE = <span class="num">38400</span></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-label">// 03 — How It Works</div>
+  <h2>Kalman Filter Design</h2>
+  <p>
+    The filter maintains a 5-state estimate (position, velocity, and heading) in a local ENU frame 
+    anchored to a UTM origin set at first GPS fix. Output is absolute UTM coordinates, matching 
+    the frame DonkeyCar uses when recording waypoints.
+  </p>
+
+  <div class="two-col" style="margin-top: 1.5rem;">
+    <div class="card">
+      <div class="card-label green">50 Hz — Predict</div>
+      <h3>IMU Propagation</h3>
+      <p>BNO08x linear acceleration is rotated from body frame to world frame using the current yaw estimate, then used to propagate position and velocity forward each cycle.</p>
+    </div>
+    <div class="card">
+      <div class="card-label green">50 Hz — Yaw Update</div>
+      <h3>Heading from Quaternion</h3>
+      <p>BNO08x game rotation vector gives a yaw measurement every cycle. A 120°/cycle spike filter rejects corrupt readings. Yaw state is corrected via a standard Kalman update.</p>
+    </div>
+    <div class="card">
+      <div class="card-label green">10 Hz — GPS Update</div>
+      <h3>Position Correction</h3>
+      <p>On each new GPS fix, the x/y position state is corrected. GPS course is blended into the yaw estimate when speed exceeds 0.8 m/s. Velocity is zeroed when the car is stationary.</p>
+    </div>
+    <div class="card">
+      <div class="card-label green">Output</div>
+      <h3>UTM pos/x · pos/y</h3>
+      <p>Absolute UTM easting and northing fed to DonkeyCar's path follower at 50 Hz, the same coordinate system used when recording waypoints, so no other changes are needed.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-label">// 04 — Team</div>
+  <h2>Team 12</h2>
+  <div class="team-grid">
+    <div class="member">
+      <div class="member-name">Woojin Lee</div>
+      <div class="member-dept">ECE</div>
+    </div>
+    <div class="member">
+      <div class="member-name">Spencer Herberich</div>
+      <div class="member-dept">MAE</div>
+    </div>
+    <div class="member">
+      <div class="member-name">Pelin Kaynak</div>
+      <div class="member-dept">MAE</div>
+    </div>
+    <div class="member">
+      <div class="member-name">Thomas Beauchataud</div>
+      <div class="member-dept">UPS</div>
+    </div>
+  </div>
+</section>
+
 <footer>
-    <p>&copy; 2026 | [Project Name] | Built with GitHub Pages</p>
+  ECE/MAE 148 · Team 12 · WI26 · UC San Diego &nbsp;|&nbsp; GPS/IMU Fusion for DonkeyCar
 </footer>
 
 </body>
